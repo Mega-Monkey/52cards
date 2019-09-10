@@ -1,6 +1,17 @@
+/* * {
+    border: 1px solid red !important;
+ } */
 header {
     display: flex;
     justify-content: space-around;
+    
+}
+.nav {
+    background: lightblue;
+    padding: 3rem 12rem;
+} 
+.nav:hover {
+    background: lightskyblue;
 }
 .guessBlock {
     display: flex;
@@ -8,8 +19,20 @@ header {
     flex-direction: column;
     margin-top: 10rem;
 }
+.question {
+    margin-bottom: 1rem 
+}
+input {
+    outline-width: 0;
+}
 
 
+
+/* pop up 1 */
+.hidden{
+    opacity: 0;
+    visibility: hidden;
+}
 .modal {
     position: fixed;
     left: 0;
@@ -50,3 +73,4 @@ header {
     transform: scale(1.0);
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
+/* pop up 1 end */

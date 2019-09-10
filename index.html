@@ -9,25 +9,65 @@
 </head>
 <body>
     <header>
-        <div class="about">About</div>
-        <div class="answers">Answers</div>
-        <div>guess by number</div>
-        <div>guess by letters</div>
-        <div>guess by word</div>
-    </header>
-    <div class="guessBlock">
-        <div class="question"> </div>
-        <input type="text" placeholder="what is the word">
-        <div class="confirm"></div>
-    </div>
+        <div class="aboutNav nav">About
 
-   
-    <div class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h1>This is a tool to teach the Darren Brown method of numberical memerasation</h1>
+             <div class="modal about show-modal">
+                 <div class="modal-content closer">
+                     <span class="close-button">&times;</span>
+                     <h1 class="closer">about</h1>
+                     <p class="closer">This is a teaching tool for a memorisation technquire from Tricks of the Minds written by magician and mentalist Darren Brown. This for of memrisation can be used for remebering simple number like a pin or phone numbers or to remember three full decks of cards</p>
+                 </div>
+             </div>
+
         </div>
+
+
+        <div class="answersNav nav">Answers
+
+                <div class="modal answers">
+                    <div class="modal-content closer">
+                        <span class="close-button">&times;</span>
+                        <h1 class="closer">answers</h1>
+                        <p class="closer">This is a teaching tool for a memorisation technquire from Tricks of the Minds written by magician and mentalist Darren Brown. This for of memrisation can be used for remebering simple number like a pin or phone numbers or to remember three full decks of cards</p>
+                    </div>
+                </div>
+
+        </div>
+        <div class="settingsNav nav">Settings
+
+                <div class="modal settings">
+                        <div class="modal-content closer">
+                            <span class="close-button">&times;</span>
+                            <h1 class="closer">settings</h1>
+                            <div class="slidecontainer closer">
+                                <input class="closer" type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                            </div>
+                        </div>
+                </div>
+
+        </div>
+    </header>
+
+    <span>
+        <div>Score</div>
+        <div class="scoreNum">0</div>
+    </span>
+
+    <div class="guessBlock">
+        <div class="question">?</div>
+        <input class="answerBox" type="text" placeholder="what is the word">
+        <div class="confirm"></div>
+        <!-- <div>hint</div>
+        <div></div> -->
     </div>
+  
+    <div class="modal tutorial">
+            <div class="modal-content closer">
+                <span class="close-button">&times;</span>
+                <h1 class="closer">tutorial</h1>
+                <p class="closer"></p>
+            </div>
+        </div>
 
     <script 
         src="https://code.jquery.com/jquery-3.4.1.js"
