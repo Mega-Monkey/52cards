@@ -7,6 +7,9 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import './ButtonBarApp.css'
+import { Switch, Route, Link } from 'react-router-dom'
+import MoreIcon from '@material-ui/icons/MoreVert';
+import LongMenu from './LongMenu'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,13 +29,15 @@ export default function ButtonAppBar() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar><Link to="/">
           <IconButton>
             <img src="/poker.png" alt=""/>
           </IconButton>
+        </Link>
           <Typography variant="h6" className={classes.title}>
            52 Cards
           </Typography>
+          <LongMenu />
         </Toolbar>
       </AppBar>
     </div>

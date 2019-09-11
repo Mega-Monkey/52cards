@@ -1,0 +1,34 @@
+/* * {
+    border: red 1px solid
+} */
+.all {
+    padding-top: 8rem; 
+    display: flex;
+    flex-direction: column;
+}
+.containerQuestion {
+    display: flex;
+    justify-content: center;
+}
+.containerAnswer {
+    display: flex;
+    justify-content: center;
+}
+.number {
+    padding-left: 0.5rem;
+}
+.checkCorrectContainer {
+    display: flex;
+    justify-content: center;
+}
+.containerScore {
+    position: absolute;
+    left: 100px;
+    top: 150px;
+    display: flex;
+    justify-content: center;
+}
+.MuiSvgIcon-root.helpIcon {
+    font-size: 1rem;
+    color: darkgray;
+}
