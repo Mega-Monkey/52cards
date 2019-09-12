@@ -20,6 +20,7 @@
 .checkCorrectContainer {
     display: flex;
     justify-content: center;
+    height: 5rem;
 }
 .containerScore {
     position: absolute;
@@ -31,4 +32,8 @@
 .MuiSvgIcon-root.helpIcon {
     font-size: 1rem;
     color: darkgray;
+}
+.containerVert {
+    display: flex;
+    justify-content: space-evenly;
 }

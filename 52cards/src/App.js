@@ -7,16 +7,11 @@ import Tutorial from './Tutorial'
 import { Switch, Route, Link } from 'react-router-dom'
 import MouseOverPopover from './MouseOverPopover'
 import FlipNumbers from 'react-flip-numbers';
-
-
-
-// import logo from './logo.svg';
-// import './App.css';
+import Buiginner from './Buiginner'
 
 class App extends React.Component {
   constructor(){
     super();
-    console.log("search box imported");
     this.state = {
       guess: "",
       correctOrNot: "",
@@ -24,8 +19,11 @@ class App extends React.Component {
       number: 0,
       word: "zoo",
       score: 0,
-      unlockedNumbers: 3,
+      unlockedNumbers: [0,1,2,3,4],
       newNumberCounter: 0,
+      showSnackbar: false,
+      snackBarText: "",
+      buttonNames: ['Buiginner', 'Intermediate', 'Advanced'],
       numberPlusWords: {
         0: {word: "zoo", counter: 0},
         1: {word: "ale", counter: 0},
@@ -65,73 +63,215 @@ class App extends React.Component {
         35: {word: "muff", counter: 0},
         36: {word: "map", counter: 0},
         37: {word: "mat", counter: 0}
-      }
+      },
+      numbersPlusLetters: {
+        0: {letter: 's, z and the s sound', counter: 0},
+        1: {letter: 'l', counter: 0},
+        2: {letter: 'n', counter: 0},
+        3: {letter: 'm', counter: 0},
+        4: {letter: 'r', counter: 0},
+        5: {letter: 'f and v', counter: 0},
+        6: {letter: 'b', counter: 0},
+        7: {letter: 't', counter: 0},
+        8: {letter: 'sh and ch', counter: 0},
+        9: {letter: 'g', counter: 0},
+      } 
     }
   }
- 
   
-  // state = {
-  //   guess: "",
-  //   correctOrNot: ""
-  // }
-  
-  chooseNewNumber = () => {
-    var size = Object.keys(this.state.numberPlusWords).length;
-    var ranNum = Math.floor((Math.random() * this.state.unlockedNumbers) + 0);
-    
-    while (ranNum === this.state.number) {
-      ranNum = Math.floor((Math.random() * this.state.unlockedNumbers) + 0); 
-    } 
-      this.setState({ number: ranNum })
-      this.state.numberPlusWords[ranNum].counter = this.state.numberPlusWords[ranNum].counter + 1
-      return this.state.numberPlusWords[ranNum].word
-    
-  }
-  
-  hint = () => {
-
+  // Buiginner page logic
+  // 
+  // 
+  snackBoxTextChooserBuiginner = () => {
+    let arrayWithAllFullCounters = Object.entries(this.state.numberPlusWords)
+    .filter(elem => elem[1].counter >= 5)
+    let highestUnlockedNumber = arrayWithAllFullCounters.length + this.state.unlockedNumbers.length
+    this.setState({ snackBarText: `${highestUnlockedNumber} = ${this.state.numberPlusWords[highestUnlockedNumber].word}` })
   }
 
-  addNewNumber = () => {
-    if (Number(this.state.score) % 100 === 0 && Number(this.state.score) >= this.state.newNumberCounter) {
-      this.setState({ unlockedNumbers: Number(this.state.unlockedNumbers) + 1 })
+  openSnackBarBuiginner = () => {
+    if (this.state.numberPlusWords[this.state.number].counter === 5 ) {
+      this.setState({ showSnackbar: true })
     }
   }
+  increaseCounterInNumberPlusWordsBuiginner = () => {
+    let { numberPlusWords } = this.state
+    numberPlusWords[this.state.number].counter += 1
+    this.setState({ numberPlusWords })
+  }
+  setZeroCounterInNumberPlusWordsBuiginner = () => {
+    let { numberPlusWords } = this.state
+    numberPlusWords[this.state.number].counter = 0
+    this.setState({ numberPlusWords })
+  }
+  
+  assignNewNumbersToTheUnlockedNumbersArrBuiginner = () => {
+    let numberPlusWordsArr = Object.entries(this.state.numberPlusWords)
+    let numberPlusWordsArrWithFiveNumbers = 
+    numberPlusWordsArr
+      .filter(elem => elem[1].counter < 5)
+      .splice(0,5)
+      .map(numPlusWord => numPlusWord[0])
+    this.setState({ unlockedNumbers: numberPlusWordsArrWithFiveNumbers })
+  }
 
-  takeGuess = e => {
-    this.addNewNumber()
+  chooseNewWordBuiginner = () => {
+    this.assignNewNumbersToTheUnlockedNumbersArrBuiginner()
+    var ranNum = Math.floor((Math.random() * this.state.unlockedNumbers.length) + 0);
+    while (this.state.unlockedNumbers[ranNum] === this.state.number) {
+      ranNum = Math.floor((Math.random() * this.state.unlockedNumbers.length) + 0); 
+    }
+    this.setState({ number: this.state.unlockedNumbers[ranNum] })
+    return this.state.numberPlusWords[this.state.unlockedNumbers[ranNum]].word
+  }
+  
+  takeGuessBuiginner = e => {
     e.preventDefault()
-    
+    this.snackBoxTextChooserBuiginner()
     var guess = e.target.children[0].children[1].children[0].value
     var target = e.target.children[0].children[1].children[0]
     this.setState({ guess })
     if ( guess === this.state.word ) {
-      this.setState({ correctOrNot: 'correct' }) 
-      this.setState({ score: Number(this.state.score) + 10 }) 
+      this.setState({ correctOrNot: 'correct',
+      score: Number(this.state.score) + 10,
+      })
+      this.increaseCounterInNumberPlusWordsBuiginner()
+      this.openSnackBarBuiginner()
+    } else if (guess === 'answer') {
+      this.setState({ correctOrNot: this.state.word, })
+      this.setZeroCounterInNumberPlusWordsBuiginner()
+      if (this.state.score > '0') {
+        this.setState({
+          score: Number(this.state.score) - 10
+        }) 
+      }
     } else {
       this.setState({ correctOrNot: 'incorrect' }) 
-        if (this.state.score <= '0') {
-        } else {
-          this.setState({ score: Number(this.state.score) - 5 }) 
+      this.setZeroCounterInNumberPlusWordsBuiginner()
+        if (this.state.score > '0') {
+          this.setState({
+            score: Number(this.state.score) - 5
+          }) 
         }
-  }
+      }
+      
     setTimeout(() => {
-      var chosenWord = this.chooseNewNumber()
+      var chosenWord = this.chooseNewWordBuiginner()
       this.setState({ word: chosenWord })
       target.value = ''
       this.setState({ correctOrNot: '' }) 
     }, 1000)
   }
 
+// 
+// 
+// End Buiginner page logic
+
+  // Advanced page logic
+  // 
+  // 
+  snackBoxTextChooser = () => {
+    let arrayWithAllFullCounters = Object.entries(this.state.numberPlusWords)
+    .filter(elem => elem[1].counter >= 5)
+    let highestUnlockedNumber = arrayWithAllFullCounters.length + this.state.unlockedNumbers.length
+    this.setState({ snackBarText: `${highestUnlockedNumber} = ${this.state.numberPlusWords[highestUnlockedNumber].word}` })
+  }
+
+  openSnackBar = () => {
+    if (this.state.numberPlusWords[this.state.number].counter === 5 ) {
+      this.setState({ showSnackbar: true })
+    }
+  }
+  increaseCounterInNumberPlusWords = () => {
+    let { numberPlusWords } = this.state
+    numberPlusWords[this.state.number].counter += 1
+    this.setState({ numberPlusWords })
+  }
+  setZeroCounterInNumberPlusWords = () => {
+    let { numberPlusWords } = this.state
+    numberPlusWords[this.state.number].counter = 0
+    this.setState({ numberPlusWords })
+  }
+  
+  assignNewNumbersToTheUnlockedNumbersArr = () => {
+    let numberPlusWordsArr = Object.entries(this.state.numberPlusWords)
+    let numberPlusWordsArrWithFiveNumbers = 
+    numberPlusWordsArr
+      .filter(elem => elem[1].counter < 5)
+      .splice(0,5)
+      .map(numPlusWord => numPlusWord[0])
+    this.setState({ unlockedNumbers: numberPlusWordsArrWithFiveNumbers })
+  }
+
+  chooseNewWord = () => {
+    this.assignNewNumbersToTheUnlockedNumbersArr()
+    var ranNum = Math.floor((Math.random() * this.state.unlockedNumbers.length) + 0);
+    while (this.state.unlockedNumbers[ranNum] === this.state.number) {
+      ranNum = Math.floor((Math.random() * this.state.unlockedNumbers.length) + 0); 
+    }
+    this.setState({ number: this.state.unlockedNumbers[ranNum] })
+    return this.state.numberPlusWords[this.state.unlockedNumbers[ranNum]].word
+  }
+  
+  takeGuessIntermediate = e => {
+    e.preventDefault()
+    this.snackBoxTextChooser()
+    var guess = e.target.children[0].children[1].children[0].value
+    var target = e.target.children[0].children[1].children[0]
+    this.setState({ guess })
+    if ( guess === this.state.word ) {
+      this.setState({ correctOrNot: 'correct',
+      score: Number(this.state.score) + 10,
+      })
+      this.increaseCounterInNumberPlusWords()
+      this.openSnackBar()
+    } else if (guess === 'answer') {
+      this.setState({ correctOrNot: this.state.word, })
+      this.setZeroCounterInNumberPlusWords()
+      if (this.state.score > '0') {
+        this.setState({
+          score: Number(this.state.score) - 10
+        }) 
+      }
+    } else {
+      this.setState({ correctOrNot: 'incorrect' }) 
+      this.setZeroCounterInNumberPlusWords()
+        if (this.state.score > '0') {
+          this.setState({
+            score: Number(this.state.score) - 5
+          }) 
+        }
+      }
+      
+    setTimeout(() => {
+      var chosenWord = this.chooseNewWord()
+      this.setState({ word: chosenWord })
+      target.value = ''
+      this.setState({ correctOrNot: '' }) 
+    }, 1000)
+  }
+
+// 
+// 
+// End Advanced page logic
+  handleClose = () => {
+    this.setState({ showSnackbar: false }) 
+  }
+
   render() {
     return (
     <div className="App">
       <ButtonBarApp />
-        <Switch>
-          <Route exact path='/' component={IntroPage} />
-          <Route path='/tutorial' component={Tutorial} />
-          <Route path='/play' render={routeProps => <Play {...routeProps} takeGuess={this.takeGuess} correctOrNot={this.state.correctOrNot} number={this.state.number} score={this.state.score} word={this.state.word} /> } />
-        </Switch> 
+      <Switch>
+        <Route exact path='/' render={routeProps => <IntroPage {...routeProps} buttonNames={this.state.ButtonNames} /> } />
+        
+        <Route path='/tutorial' component={Tutorial} />
+
+        <Route path='/buiginner' render={routeProps => <Buiginner {...routeProps} takeGuess={this.takeGuess} correctOrNot={this.state.correctOrNot} number={this.state.number} score={this.state.score} word={this.state.word} numberPlusWords={this.state.numberPlusWords} showSnackbar={this.state.showSnackbar} handleClose={this.handleClose} snackBarText={this.state.snackBarText} numbersPlusLetters={this.state.numbersPlusLetters} /> } />
+
+
+        <Route path='/play' render={routeProps => <Play {...routeProps} takeGuessIntermediate={this.takeGuessIntermediate} correctOrNot={this.state.correctOrNot} number={this.state.number} score={this.state.score} word={this.state.word} numberPlusWords={this.state.numberPlusWords} showSnackbar={this.state.showSnackbar} handleClose={this.handleClose} snackBarText={this.state.snackBarText} /> } />
+      </Switch>
     </div>
     )
   };

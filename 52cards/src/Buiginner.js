@@ -11,7 +11,7 @@ import MouseOverPopover from './MouseOverPopover'
 import VerticalLoad from './VerticalLoad'
 import SnackBar from './MySnackbarContentWrapper'
 
-export default function Play(props) {
+export default function Buiginner(props) {
 
   return (
     <div>
@@ -43,8 +43,8 @@ export default function Play(props) {
                 </Typography>
             </div>
             <div className="containerVert">
-                { Object.entries(props.numberPlusWords).map(function(numPlusWord) {
-                    return <VerticalLoad counter={numPlusWord[1].counter} />
+                { Object.entries(props.numbersPlusLetters).map(function(numPlusletter) {
+                    return <VerticalLoad counter={numPlusletter[1].counter} />
                 })}
             </div>
             <SnackBar {...props} />

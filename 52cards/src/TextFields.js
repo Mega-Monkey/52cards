@@ -32,7 +32,7 @@ export default function TextFields(props) {
   });
 
   return (
-    <form className={classes.container} noValidate autoComplete="off" onSubmit={props.takeGuess}>
+    <form className={classes.container} noValidate autoComplete="off" onSubmit={props.takeGuessIntermediate}>
     <TextField
         id="standard-bare"
         label="Your Guess"

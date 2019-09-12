@@ -1,5 +1,15 @@
+/* * {
+    border: red solid 1px;
+} */
 .container {
     display: flex;
     flex-direction: column;
-    
+    align-items: center;
+}
+.container > * {
+    padding-top: 2rem;    
+}
+.containerButtons {
+    display: flex;
+    justify-content: space-around;
 }

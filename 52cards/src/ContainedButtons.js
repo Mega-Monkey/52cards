@@ -11,13 +11,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ContainedButtons() {
+export default function ContainedButtons({ name }) {
   const classes = useStyles();
 
   return (
     <div>
       <Button variant="contained" color="primary" className={classes.button}>
-        Let's Play
+        { name }
       </Button>
     </div>
   );
