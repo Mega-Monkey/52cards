@@ -9,6 +9,7 @@ import MouseOverPopover from './MouseOverPopover'
 import FlipNumbers from 'react-flip-numbers';
 import Buiginner from './Buiginner'
 
+
 class App extends React.Component {
   constructor(){
     super();
@@ -78,99 +79,10 @@ class App extends React.Component {
       } 
     }
   }
-  
-  // Buiginner page logic
-  // 
-  // 
-  snackBoxTextChooserBuiginner = () => {
-    let arrayWithAllFullCounters = Object.entries(this.state.numberPlusWords)
-    .filter(elem => elem[1].counter >= 5)
-    let highestUnlockedNumber = arrayWithAllFullCounters.length + this.state.unlockedNumbers.length
-    this.setState({ snackBarText: `${highestUnlockedNumber} = ${this.state.numberPlusWords[highestUnlockedNumber].word}` })
-  }
-
-  openSnackBarBuiginner = () => {
-    if (this.state.numberPlusWords[this.state.number].counter === 5 ) {
-      this.setState({ showSnackbar: true })
-    }
-  }
-  increaseCounterInNumberPlusWordsBuiginner = () => {
-    let { numberPlusWords } = this.state
-    numberPlusWords[this.state.number].counter += 1
-    this.setState({ numberPlusWords })
-  }
-  setZeroCounterInNumberPlusWordsBuiginner = () => {
-    let { numberPlusWords } = this.state
-    numberPlusWords[this.state.number].counter = 0
-    this.setState({ numberPlusWords })
-  }
-  
-  assignNewNumbersToTheUnlockedNumbersArrBuiginner = () => {
-    let numberPlusWordsArr = Object.entries(this.state.numberPlusWords)
-    let numberPlusWordsArrWithFiveNumbers = 
-    numberPlusWordsArr
-      .filter(elem => elem[1].counter < 5)
-      .splice(0,5)
-      .map(numPlusWord => numPlusWord[0])
-    this.setState({ unlockedNumbers: numberPlusWordsArrWithFiveNumbers })
-  }
-
-  chooseNewWordBuiginner = () => {
-    this.assignNewNumbersToTheUnlockedNumbersArrBuiginner()
-    var ranNum = Math.floor((Math.random() * this.state.unlockedNumbers.length) + 0);
-    while (this.state.unlockedNumbers[ranNum] === this.state.number) {
-      ranNum = Math.floor((Math.random() * this.state.unlockedNumbers.length) + 0); 
-    }
-    this.setState({ number: this.state.unlockedNumbers[ranNum] })
-    return this.state.numberPlusWords[this.state.unlockedNumbers[ranNum]].word
-  }
-  
-  takeGuessBuiginner = e => {
-    e.preventDefault()
-    this.snackBoxTextChooserBuiginner()
-    var guess = e.target.children[0].children[1].children[0].value
-    var target = e.target.children[0].children[1].children[0]
-    this.setState({ guess })
-    if ( guess === this.state.word ) {
-      this.setState({ correctOrNot: 'correct',
-      score: Number(this.state.score) + 10,
-      })
-      this.increaseCounterInNumberPlusWordsBuiginner()
-      this.openSnackBarBuiginner()
-    } else if (guess === 'answer') {
-      this.setState({ correctOrNot: this.state.word, })
-      this.setZeroCounterInNumberPlusWordsBuiginner()
-      if (this.state.score > '0') {
-        this.setState({
-          score: Number(this.state.score) - 10
-        }) 
-      }
-    } else {
-      this.setState({ correctOrNot: 'incorrect' }) 
-      this.setZeroCounterInNumberPlusWordsBuiginner()
-        if (this.state.score > '0') {
-          this.setState({
-            score: Number(this.state.score) - 5
-          }) 
-        }
-      }
-      
-    setTimeout(() => {
-      var chosenWord = this.chooseNewWordBuiginner()
-      this.setState({ word: chosenWord })
-      target.value = ''
-      this.setState({ correctOrNot: '' }) 
-    }, 1000)
-  }
-
-// 
-// 
-// End Buiginner page logic
-
   // Advanced page logic
   // 
   // 
-  snackBoxTextChooser = () => {
+  snackBoxTextChooser = (obj) => {
     let arrayWithAllFullCounters = Object.entries(this.state.numberPlusWords)
     .filter(elem => elem[1].counter >= 5)
     let highestUnlockedNumber = arrayWithAllFullCounters.length + this.state.unlockedNumbers.length
@@ -254,6 +166,11 @@ class App extends React.Component {
 // 
 // 
 // End Advanced page logic
+
+/// buiginner logic
+
+
+
   handleClose = () => {
     this.setState({ showSnackbar: false }) 
   }

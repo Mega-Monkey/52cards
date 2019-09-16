@@ -29,15 +29,14 @@ export default function ButtonAppBar() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar><Link to="/">
+        <Toolbar className="bar"><Link to="/">
           <IconButton>
             <img src="/poker.png" alt=""/>
           </IconButton>
         </Link>
-          <Typography variant="h6" className={classes.title}>
+          <h1 className="title">
            52 Cards
-          </Typography>
-          <LongMenu />
+          </h1>
         </Toolbar>
       </AppBar>
     </div>

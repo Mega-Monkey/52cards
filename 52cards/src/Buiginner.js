@@ -37,7 +37,7 @@ export default function Buiginner(props) {
             <div className="containerAnswer">
                 <TextFields {...props} />
             </div>
-            <div className="checkCorrectContainer">
+            <div className=" ">
                 <Typography className="checkCorrect" variant="body1">
                     {props.correctOrNot}
                 </Typography>

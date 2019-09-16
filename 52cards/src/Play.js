@@ -10,6 +10,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import MouseOverPopover from './MouseOverPopover'
 import VerticalLoad from './VerticalLoad'
 import SnackBar from './MySnackbarContentWrapper'
+import SimpleModal from './SimpleModal'
 
 export default function Play(props) {
 
@@ -35,7 +36,7 @@ export default function Play(props) {
                 <MouseOverPopover {...props} />   
             </div>
             <div className="containerAnswer">
-                <TextFields {...props} />
+                <TextFields {...props} dothis={props.takeGuessIntermediate} />
             </div>
             <div className="checkCorrectContainer">
                 <Typography className="checkCorrect" variant="body1">
@@ -48,6 +49,8 @@ export default function Play(props) {
                 })}
             </div>
             <SnackBar {...props} />
+            {/* <SimpleModal {...props} /> */}
+
         </div>
     </div>
   );

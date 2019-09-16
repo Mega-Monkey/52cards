@@ -1,15 +1,46 @@
 /* * {
     border: red solid 1px;
 } */
+* {
+    font-family: 'TattooUMedium';
+    font-weight: normal;
+    font-style: normal;
+  }
+body {
+    background: url(/card_background.png);
+    background-size: cover;
+    background-position: top; 
+}
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 0.5rem;
+
 }
 .container > * {
-    padding-top: 2rem;    
+    /* padding-top: 2rem;  */
+    width: 40%;   
+    text-align: center;
+    background: white;
 }
 .containerButtons {
     display: flex;
     justify-content: space-around;
+}
+.button.MuiButton-label.MuiButton-containedPrimary.MuiButton-root {
+    text-decoration: none;
+    background: black;
+    height: 100px ;
+}
+.line {
+    height: 0.2rem;
+    background-color: #8a6e29;
+    margin-bottom: 2rem;
+}
+.link{
+    text-decoration: none;
+}
+.vertLine {
+    padding: 0 0.5rem 0 0.5rem ;
 }

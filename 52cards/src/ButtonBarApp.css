@@ -1,6 +1,15 @@
 * {
     margin: 0;
+    font-family: 'TattooUMedium';
+    font-weight: normal;
+    font-style: normal;
 }
 img {
     height: 3rem;
+}
+.title {
+    color: #8a6e29;
+}
+.bar {
+    background-color: #5a5a5a
 }
